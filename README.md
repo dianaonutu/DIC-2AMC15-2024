@@ -22,17 +22,15 @@ DIC Reinforcement Learning Trainer.
 positional arguments:
   GRID                  Paths to the grid file to use. There can be more than
                         one.
-
 options:
-  -h, --help            show this help message and exit
-  --no_gui              Disables rendering to train faster
-  --sigma SIGMA         Sigma value for the stochasticity of the environment.
-  --fps FPS             Frames per second to render at. Only used if no_gui is
-                        not set.
-  --iter ITER           Number of iterations to go through.
-  --random_seed RANDOM_SEED
-                        Random seed value for the environment.
+  -h, --help                 show this help message and exit
+  --no_gui                   Disables rendering to train faster
+  --sigma SIGMA              Sigma value for the stochasticity of the environment.
+  --fps FPS                  Frames per second to render at. Only used if no_gui is not set.
+  --iter ITER                Number of iterations to go through.
+  --random_seed RANDOM_SEED  Random seed value for the environment.
 ```
+
 ## Code guide
 
 The code is made up of 2 modules: 
@@ -100,7 +98,7 @@ The main interaction with `Environment` is through the methods:
 
 #### The Grid
 
-The `Grid` class is the the actual representation of the world on which the agent move. It is a 2D Numpy array.
+The `Grid` class is the the actual representation of the world on which the agent moves. It is a 2D Numpy array.
 
 #### The GUI
 
