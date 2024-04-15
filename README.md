@@ -1,24 +1,20 @@
-# 2AMC15-2023-DIC
+# DIC-2AMC15-2024
 
-Welcome to 2AMC15 Data Intelligence Challenge!.
+Welcome to Data Intelligence Challenge-2AMC15!
 This is the repository containing the challenge environment code.
 
 ## Quickstart
 
-1. Create an agent which inherits from the `BaseAgent` class
-2. Add the agents you want to test to `train.py`
-   - There are 2 places to add you agent. Look for the comment `# Add your agent here` for where to add your agent.
-3. Run `$ python train.py grid_configs/rooms-1.grd --out results/` to start training!
+1. Create a virtual environment for this course with Python >= 3.10. Using conda, you can do: `conda create -n dic2024 python=3.11`. Use `conda activate dic2024` to activate it `conda deactivate` to deactivate it.
+2. Clone this repository into the local directory you prefer `git clone https://github.com/dianaonutu/DIC-2AMC15-2024.git`.
+3. Install the required packages `pip install -r requirements.txt`. Now, you are ready to use the simulation environment! :partying_face:	
+4. Run `$ python train.py grid_configs/testroom.grd` to start training!
 
-`train.py` is just an example training script. 
-Feel free to modify it as necessary.
-In our basic example, we use command line arguments to select options for it.
-This may not be convenient for you and you can choose to replace this training script with whatever you want.
-By default, its usage is:
+`train.py` is just an example training script. Inside this file, initialize the agent you want to train and evaluate. Feel free to modify it as necessary. Its usage is:
 
 ```bash
 usage: train.py [-h] [--no_gui] [--sigma SIGMA] [--fps FPS] [--iter ITER]
-                [--random_seed RANDOM_SEED] [--out OUT]
+                [--random_seed RANDOM_SEED] 
                 GRID [GRID ...]
 
 DIC Reinforcement Learning Trainer.
@@ -36,22 +32,20 @@ options:
   --iter ITER           Number of iterations to go through.
   --random_seed RANDOM_SEED
                         Random seed value for the environment.
-  --out OUT             Where to save training results.
 ```
 ## Code guide
 
-The code is made up of 3 modules: 
+The code is made up of 2 modules: 
 
 1. `agent`
-2. `level_editor`
-3. `world`
+2. `world`
 
 ### The `agent` module
 
-The `agent` module contains the `BaseAgent` class as well as some benchmark agents to test against.
+The `agent` module contains the `BaseAgent` class as well as some benchmark agents you may want to test against.
 
 The `BaseAgent` is an abstract class and all RL agents for DIC must inherit from/implement it.
-If you know/understand class inheritence, skip the following section
+If you know/understand class inheritence, skip the following section:
 
 #### `BaseAgent` as an abstract class
 Think of this like how all models in PyTorch start like 
@@ -66,7 +60,7 @@ class NewModel(nn.Module):
 In this case, `NewModel` inherits from `nn.Module`, which gives it the ability to do back propagation, store parameters, etc. without you having to manually code that every time.
 It also ensures that every class that inherits from `nn.Module` contains _at least_ the `forward()` method, which allows a forward pass to actually happen.
 
-In the case of your RL agent, inheriting from `BaseAgent` guarantees that your agent implements `process_reward()` and `take_action()`.
+In the case of your RL agent, inheriting from `BaseAgent` guarantees that your agent implements `update()` and `take_action()`.
 This ensures that no matter what RL agent you make and however you code it, the environment and training code can always interact with it in the same way.
 Check out the benchmark agents to see examples.
 
