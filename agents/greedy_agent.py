@@ -9,10 +9,10 @@ from agents import BaseAgent
 
 class GreedyAgent(BaseAgent):
     def __init__(self):
-        """Chooses an action randomly unless there is something neighboring.
+        """Chooses an action randomly unless there is a target neighboring.
         """
 
-    def update(self, observation: np.ndarray, reward: float, action):
+    def update(self, observation: np.ndarray, reward: float, action: int):
         pass
 
     def take_action(self, observation: np.ndarray, info: None | dict) -> int:
