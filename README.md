@@ -8,7 +8,7 @@ This is the repository containing the challenge environment code.
 1. Create a virtual environment for this course with Python >= 3.10. Using conda, you can do: `conda create -n dic2024 python=3.11`. Use `conda activate dic2024` to activate it `conda deactivate` to deactivate it.
 2. Clone this repository into the local directory you prefer `git clone https://github.com/dianaonutu/DIC-2AMC15-2024.git`.
 3. Install the required packages `pip install -r requirements.txt`. Now, you are ready to use the simulation environment! :partying_face:	
-4. Run `$ python train.py grid_configs/testroom.grd` to start training!
+4. Run `$ python train.py grid_configs/grid_example.grd` to start training!
 
 `train.py` is just an example training script. Inside this file, initialize the agent you want to train and evaluate. Feel free to modify it as necessary. Its usage is:
 
