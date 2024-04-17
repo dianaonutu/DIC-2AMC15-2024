@@ -76,6 +76,7 @@ def draw_starting_square(starting_square: tuple[int, int],
     draw.rectangle((x, y, x + grid_scalar, y + grid_scalar),
                    (242, 211, 82),
                    outline=(255, 255, 255))
+
     return square_image
 
 
@@ -210,10 +211,10 @@ def visualize_path(grid_cells: np.ndarray,
     starting_square_img = draw_starting_square(agent_path[0],
                                                 scalar,
                                                 image_size)
+    # img = Image.alpha_composite(base_image, starting_square_img)
+    # freq_image = draw_freq_image(agent_path, grid_size, scalar, freq_scalar,
+                                # image_size)
     img = Image.alpha_composite(base_image, starting_square_img)
-    freq_image = draw_freq_image(agent_path, grid_size, scalar, freq_scalar,
-                                image_size)
-    img = Image.alpha_composite(img, freq_image)
     path_image = draw_path(agent_path, scalar, 2,
                             float_rgb_to_int(glasbey_hv[0]),
                             image_size)
