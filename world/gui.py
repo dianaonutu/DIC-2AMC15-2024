@@ -22,7 +22,7 @@ class GUI:
         ("cumulative_reward", "Cumulative reward:"),
         ("total_steps", "Total steps:"),
         ("total_failed_move", "Total failed moves:"),
-        ("total_targets_reached", "Total targets reached:"),
+        # ("total_targets_reached", "Total targets reached:"),
         ("fps", "FPS:"),
     ]
 
