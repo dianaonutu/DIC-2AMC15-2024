@@ -46,7 +46,7 @@ The `BaseAgent` is an abstract class and all RL agents for DIC must inherit from
 If you know/understand class inheritence, skip the following section:
 
 #### `BaseAgent` as an abstract class
-Here you can find an explanation about abstract classes [Geeks for Geeks abstract classes]([https://website-name.com](https://www.geeksforgeeks.org/abstract-classes-in-python/)).
+Here you can find an explanation about abstract classes [Geeks for Geeks abstract classes]([[https://website-name.com](https://www.geeksforgeeks.org/abstract-classes-in-python/))].
 Think of this like how all models in PyTorch start like 
 
 ```python
