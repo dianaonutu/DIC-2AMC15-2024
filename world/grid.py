@@ -14,7 +14,7 @@ class Grid:
 
         Possible grid values are:
         - Empty: 0,
-        - Bundary: 1,
+        - Boundary: 1,
         - Obstacle: 2,
         - Dirt: 3,
         - Charger: 4
