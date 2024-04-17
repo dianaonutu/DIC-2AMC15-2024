@@ -8,7 +8,7 @@ from tqdm import trange
 
 try:
     from world import Environment
-    from agents.greedy_agent import GreedyAgent
+    from agents.random_agent import RandomAgent
 except ModuleNotFoundError:
     from os import path
     from os import pardir
@@ -19,7 +19,7 @@ except ModuleNotFoundError:
     if root_path not in sys.path:
         sys.path.extend(root_path)
     from world import Environment
-    from agents.greedy_agent import GreedyAgent
+    from agents.random_agent import RandomAgent
 
 def parse_args():
     p = ArgumentParser(description="DIC Reinforcement Learning Trainer.")
@@ -51,23 +51,23 @@ def main(grid_paths: list[Path], no_gui: bool, iters: int, fps: int,
                           random_seed=random_seed)
         
         # Initialize agent
-        agent = GreedyAgent()
+        agent = RandomAgent()
         
         # Always reset the environment to initial state
-        obs, info, _ = env.reset()
+        state = env.reset()
         for _ in trange(iters):
             
             # Agent takes an action based on the latest observation and info.
-            action = agent.take_action(obs, info)
+            action = agent.take_action(state)
 
             # The action is performed in the environment
-            obs, reward, terminated, info = env.step(action)
+            state, reward, terminated, info = env.step(action)
             
             # If the final state is reached, stop.
             if terminated:
                 break
 
-            agent.update(obs, reward, info["actual_action"])
+            agent.update(state, reward, info["actual_action"])
 
         # Evaluate the agent
         Environment.evaluate_agent(grid, agent, iters, sigma, random_seed=random_seed)

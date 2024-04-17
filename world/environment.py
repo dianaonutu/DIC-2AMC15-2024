@@ -103,7 +103,6 @@ class Environment:
         """
         return {"target_reached": False,
                 "agent_moved": False,
-                "agent_pos": self.agent_pos,
                 "actual_action": None}
     
     @staticmethod
@@ -145,7 +144,7 @@ class Environment:
             self.agent_pos = (zeros[0][idx], zeros[1][idx])
 
 
-    def reset(self, **kwargs) -> [np.ndarray, dict, dict]:
+    def reset(self, **kwargs) -> tuple[int, int]:
         """Reset the environment to an initial state.
 
         You can fit it keyword arguments which will overwrite the 
@@ -155,7 +154,7 @@ class Environment:
             **kwargs: possible keyword options are the same as those for
                 the environment initializer.
         Returns:
-             observation, info, world_stats.
+             initial state.
         """
         for k, v in kwargs.items():
             # Go through each possible keyword argument.
@@ -187,7 +186,7 @@ class Environment:
             if self.gui is not None:
                 self.gui.close()
 
-        return self.grid, self.info, self.world_stats
+        return self.agent_pos
 
     def _move_agent(self, new_pos: tuple[int, int]):
         """Moves the agent, if possible and updates the 
@@ -221,9 +220,8 @@ class Environment:
                                  f"{self.grid[new_pos]} at position "
                                  f"{new_pos}.")
         
-        self.info["agent_pos"] = self.agent_pos
 
-    def step(self, action: int) -> [np.ndarray, float, bool, dict]:
+    def step(self, action: int) -> tuple[np.ndarray, float, bool]:
         """This function makes the agent take a step on the grid.
 
         Action is provided as integer and values are:
@@ -236,10 +234,9 @@ class Environment:
                 take. 
 
         Returns:
-            0) Current grid,
+            0) Current state,
             1) The reward for the agent,
             2) If the terminal state has been reached, and
-            3) State information.
         """
         
         self.world_stats["total_steps"] += 1
@@ -285,7 +282,7 @@ class Environment:
             self.gui.render(self.grid, self.agent_pos, self.info,
                             reward, is_single_step)
 
-        return self.grid, reward, self.terminal_state, self.info
+        return self.agent_pos, reward, self.terminal_state, self.info
 
     @staticmethod
     def _default_reward_function(grid, agent_pos) -> float:
@@ -296,7 +293,7 @@ class Environment:
         Args:
             grid: The grid the agent is moving on, in case that is needed by
                 the reward function.
-            info: The world info, in case that is needed by the reward function.
+            agent_pos: The position the agent is moving to.
 
         Returns:
             A single floating point value representing the reward for a given
@@ -334,8 +331,7 @@ class Environment:
 
         For each evaluation run, this produces a statistics file in the out
         directory which is a txt. This txt contains the values:
-        [ `total_targets_reached`, `total_steps`, `total_retraced_steps`,
-         `total_failed_moves`]
+        [ 'total_steps`, `total_failed_moves`]
 
         Args:
             grid_fp: Path to the grid file to use.
@@ -355,25 +351,25 @@ class Environment:
                           target_fps=-1,
                           random_seed=random_seed)
         
-        obs, info, world_stats = env.reset()
-        initial_grid = np.copy(obs)
+        state = env.reset()
+        initial_grid = np.copy(env.grid)
 
         # Add initial agent position to the path
         agent_path = [env.agent_pos]
 
         for _ in trange(max_steps, desc="Evaluating agent"):
             
-            action = agent.take_action(obs, info)
-            obs, _, terminated, info = env.step(action)
+            action = agent.take_action(state)
+            state, _, terminated, _ = env.step(action)
 
-            agent_path.append(info["agent_pos"])
+            agent_path.append(state)
 
             if terminated:
                 break
 
-        world_stats["targets_remaining"] = np.sum(env.grid == 3)
+        env.world_stats["targets_remaining"] = np.sum(env.grid == 3)
 
         path_image = visualize_path(initial_grid, agent_path)
         file_name = datetime.now().strftime("%Y-%m-%d__%H-%M-%S")
 
-        save_results(file_name, world_stats, path_image, show_images)
+        save_results(file_name, env.world_stats, path_image, show_images)

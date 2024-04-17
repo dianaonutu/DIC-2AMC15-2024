@@ -10,8 +10,8 @@ from agents import BaseAgent
 
 class RandomAgent(BaseAgent):
     """Agent that performs a random action every time. """
-    def update(self, observation: np.ndarray, reward: float, action):
+    def update(self, state: tuple[int, int], reward: float, action):
         pass
 
-    def take_action(self, observation: np.ndarray, info: None | dict) -> int:
+    def take_action(self, state: tuple[int, int]) -> int:
         return randint(0, 3)

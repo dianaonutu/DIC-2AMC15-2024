@@ -8,8 +8,9 @@ from agents import BaseAgent
 
 
 class NullAgent(BaseAgent):
-    def update(self, observation: np.ndarray, reward: float, action):
-        pass
 
-    def take_action(self, observation: np.ndarray, info: None | dict) -> int:
+    def take_action(self, state: tuple[int, int]) -> int:
         return 4
+    
+    def update(self, state: tuple[int, int], reward: float, action):
+        pass

@@ -16,23 +16,21 @@ class BaseAgent(ABC):
         """
 
     @abstractmethod
-    def take_action(self, observation: np.ndarray, info: None | dict) -> int:
+    def take_action(self, state: tuple[int, int]) -> int:
         """Any code that does the action should be included here.
 
         Args:
-            observation: The observation which is returned by the environment.
-            info: Any additional information your agent needs can be passed
-                in here as well as a dictionary.
+            state: The updated position of the agent.
         """
         raise NotImplementedError
     
     @abstractmethod
-    def update(self, observation: np.ndarray, reward: float, action: int):
-        """Any code that processes a reward given the observation is here.
+    def update(self, state: tuple[int, int], reward: float, action: int):
+        """Any code that processes a reward given the state and updates the agent.
 
         Args:
-            observation: The observation which is returned by the environment.
-            reward: The float value which is returned by the environment as a
+            state: The updated position of the agent.
+            reward: The value which is returned by the environment as a
                 reward.
             action: The action which was taken by the agent.
         """
