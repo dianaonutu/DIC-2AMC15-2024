@@ -24,11 +24,11 @@ positional arguments:
                         one.
 options:
   -h, --help                 show this help message and exit
-  --no_gui                   Disables rendering to train faster
-  --sigma SIGMA              Sigma value for the stochasticity of the environment.
-  --fps FPS                  Frames per second to render at. Only used if no_gui is not set.
-  --iter ITER                Number of iterations to go through.
-  --random_seed RANDOM_SEED  Random seed value for the environment.
+  --no_gui                   Disables rendering to train faster (boolean)
+  --sigma SIGMA              Sigma value for the stochasticity of the environment. (float, default=0.1, should be in [0, 1])
+  --fps FPS                  Frames per second to render at. Only used if no_gui is not set. (int, default=30)
+  --iter ITER                Number of iterations to go through. Should be integer. (int, default=1000)
+  --random_seed RANDOM_SEED  Random seed value for the environment. (int, default=0)
 ```
 
 ## Code guide
