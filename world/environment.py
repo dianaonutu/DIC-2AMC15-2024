@@ -268,10 +268,12 @@ class Environment:
         self.info["actual_action"] = actual_action
         direction = action_to_direction(actual_action)    
         new_pos = (self.agent_pos[0] + direction[0], self.agent_pos[1] + direction[1])
-        self._move_agent(new_pos)
 
         # Calculate the reward for the agent
         reward = self.reward_fn(self.grid, new_pos)
+
+        self._move_agent(new_pos)
+        
         self.world_stats["cumulative_reward"] += reward
 
         # GUI specific code
